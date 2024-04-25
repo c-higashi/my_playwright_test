@@ -1,36 +1,22 @@
 import { test, expect } from '@playwright/test';
-import { fail } from 'assert';
+import { LoginPage } from './login-page';
 
 // Scenario 1-1: Log in by a valid user.
 test('A valid user logs in', async ({ page }) => {
-  await page.goto('https://www.saucedemo.com/');
-  await expect(page).toHaveTitle(/Swag Labs/);
-  //   TODO - Figure out why toBeVisible doesn't fail even with a wrong id.
-  await expect(page.locator('id=user-name')).toBeVisible;
-  await expect(page.locator('id=password')).toBeVisible;
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
 
-  // Case 1: log in with a valid user.
-  await page.locator('id=user-name').fill('standard_user');
-  await page.locator('id=password').fill('secret_sauce');
-  await page.locator('id=login-button').click();
-
-  // Verify that the user is successfully logged in.   
-  await expect(page.locator('.title')).toContainText('Products');  
-  await expect(page.locator('id=item_4_title_link')).toContainText('Sauce Labs Backpack');
-  //   TODO - Find the right method to verify that the cart icon is there (instead of toBeVisible() perhaps)  
+    await loginPage.login('standard_user', 'secret_sauce');
+    await loginPage.verifyUserIsLoggedIn();
 });
 
 // Scenario 1-2: Log in by an invalid user.
 test('An invalid user attempts to log in', async ({ page }) => {
-  await page.goto('https://www.saucedemo.com/');
-  await expect(page).toHaveTitle(/Swag Labs/);
-  //   TODO - Figure out why toBeVisible doesn't fail even with a wrong id.
-  await expect(page.locator('id=user-name')).toBeVisible;
-  await expect(page.locator('id=password')).toBeVisible;
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
 
-  await page.locator('id=user-name').fill('standard_use');
-  await page.locator('id=password').fill('secret_sauce');
-  await page.locator('id=login-button').click();
+    await loginPage.login('standard_use', 'secret_sauce')
+    await page.locator('id=login-button').click();
   
 //  TODO: Figure out if there's a better way to get the error message.  getByText() doesn't fail even when a partial text is passed in.
   const error_message = await page.getByText('Epic sadface: Username and password do not match any user in this service');
@@ -38,18 +24,11 @@ test('An invalid user attempts to log in', async ({ page }) => {
 });
 
 // Scenario 2: Validate the number of items on the page and also validate the sorting by price.
-test('page content and sorting', async ({ page }) => {
-    await page.goto('https://www.saucedemo.com/');
-    await expect(page).toHaveTitle(/Swag Labs/);
-    //   TODO - Figure out why toBeVisible doesn't fail even with a wrong id.
-    await expect(page.locator('id=user-name')).toBeVisible;
-    await expect(page.locator('id=password')).toBeVisible;
-  
-    // User logs in.
-    await page.locator('id=user-name').fill('standard_user');
-    await page.locator('id=password').fill('secret_sauce');
-    await page.locator('id=login-button').click();
-    await expect(page.locator('.title')).toContainText('Products');  
+test('verify the page content and sorting', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.login('standard_user', 'secret_sauce');
+    await loginPage.verifyUserIsLoggedIn();
     
     const item_prices = await page.locator('.inventory_item_price');
     
@@ -70,17 +49,10 @@ test('page content and sorting', async ({ page }) => {
   });
 
   test('Add items to the cart and remove some from the cart', async ({ page }) => {
-    await page.goto('https://www.saucedemo.com/');
-    await expect(page).toHaveTitle(/Swag Labs/);
-    //   TODO - Figure out why toBeVisible doesn't fail even with a wrong id.
-    await expect(page.locator('id=user-name')).toBeVisible;
-    await expect(page.locator('id=password')).toBeVisible;
-  
-    // log in with a valid user.
-    await page.locator('id=user-name').fill('standard_user');
-    await page.locator('id=password').fill('secret_sauce');
-    await page.locator('id=login-button').click();    
-    await expect(page.locator('.title')).toContainText('Products');  
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.login('standard_user', 'secret_sauce');
+    await loginPage.verifyUserIsLoggedIn();
 
     // Add 3 items to the cart.
     await page.locator('id=add-to-cart-sauce-labs-onesie').click();
