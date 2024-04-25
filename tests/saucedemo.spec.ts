@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from './login-page';
 
-// Scenario 1-1: Log in by a valid user.
+// Scenario 1-1: Log in with a valid user.
 test('A valid user logs in', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
@@ -10,7 +10,7 @@ test('A valid user logs in', async ({ page }) => {
     await loginPage.verifyUserIsLoggedIn();
 });
 
-// Scenario 1-2: Log in by an invalid user.
+// Scenario 1-2: Log in with an invalid user.
 test('An invalid user attempts to log in', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
@@ -43,8 +43,8 @@ test('verify the page content and sorting', async ({ page }) => {
     const last_price = parseFloat((await item_prices.nth(5).textContent() || "").substring(1));
     for (let index = 1; index < 5; index++) {
         const index_price = parseFloat((await item_prices.nth(index).textContent() || "").substring(1));
-        await expect(first_price).toBeLessThanOrEqual(index_price);
-        await expect(last_price).toBeGreaterThanOrEqual(index_price);        
+        expect(first_price).toBeLessThanOrEqual(index_price);
+        expect(last_price).toBeGreaterThanOrEqual(index_price);        
     }
   });
 

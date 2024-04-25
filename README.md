@@ -11,6 +11,6 @@
 
 <!-- How to run the tests headless -->
 
-<!-- How to run the tests with UI -->
+<!-- How to run the tests in UI mode -->
 
 <!-- How to generate the test result report -->
