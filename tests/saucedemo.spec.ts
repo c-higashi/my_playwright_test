@@ -59,7 +59,7 @@ test('page content and sorting', async ({ page }) => {
     // Selecct Price (low to high) from the dropdown.
     await page.selectOption('.product_sort_container', 'lohi');    
 
-    // TODO - verify 1st is the lowest and the 6th is the highest    
+    // TODO - Extract price parsing below to a helper function.
     const first_price = parseFloat((await item_prices.nth(0).textContent() || "").substring(1));
     const last_price = parseFloat((await item_prices.nth(5).textContent() || "").substring(1));
     for (let index = 1; index < 5; index++) {

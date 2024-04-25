@@ -7,3 +7,5 @@
 <!-- How to run the tests -->
 
 <!-- How to run an individual test -->
+
+<!-- How to generate the test result report -->
