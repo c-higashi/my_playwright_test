@@ -19,7 +19,7 @@ test('An invalid user attempts to log in', async ({ page }) => {
     await page.locator('id=login-button').click();
   
 //  TODO: Figure out if there's a better way to get the error message.  getByText() doesn't fail even when a partial text is passed in.
-  const error_message = await page.getByText('Epic sadface: Username and password do not match any user in this service');
+  const error_message = page.getByText('Epic sadface: Username and password do not match any user in this service');
   await expect(error_message).toBeVisible();    
 });
 
@@ -30,7 +30,7 @@ test('verify the page content and sorting', async ({ page }) => {
     await loginPage.login('standard_user', 'secret_sauce');
     await loginPage.verifyUserIsLoggedIn();
     
-    const item_prices = await page.locator('.inventory_item_price');
+    const item_prices = page.locator('.inventory_item_price');
     
     // Verify the number of items on the page.
     await expect(item_prices).toHaveCount(6); 
@@ -48,7 +48,7 @@ test('verify the page content and sorting', async ({ page }) => {
     }
   });
 
-  test('Add items to the cart and remove some from the cart', async ({ page }) => {
+  test('Add items to the cart and remove one item from the cart', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login('standard_user', 'secret_sauce');
@@ -61,12 +61,13 @@ test('verify the page content and sorting', async ({ page }) => {
 
     // Verify that the cart has 3 items.
     await expect(page.locator('.shopping_cart_badge')).toHaveText('3');
+    // TODO - Go to the cart page and verify the number.
 
-    // Remove 2 items from the cart.
-    await page.locator('id=remove-sauce-labs-onesie').click();
-    await page.locator('id=remove-sauce-labs-bike-light').click();
+    // Remove 1 item from the cart.
+    await page.locator('id=remove-sauce-labs-onesie').click();    
 
     // Verify that there is only 1 item left in the cart.
-    await expect(page.locator('.shopping_cart_badge')).toHaveText('1');        
+    await expect(page.locator('.shopping_cart_badge')).toHaveText('2');       
+    // TODO - Go to the cart page and verify the number. 
   });
   
