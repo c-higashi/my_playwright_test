@@ -1,16 +1,15 @@
 # saucedemo
 
-NOTE1: For this exercise I have configured this framework so that the tests only run in Chrome.
-NOTE2: The tests are configured to run in parallel.
-NOTE3: The tests run in headless mode by default.
+NOTE1: For this exercise I have configured this framework so that the tests only run in Chrome. <br>
+NOTE2: The tests are configured to run in parallel. <br>
+NOTE3: The tests run in headless mode by default. <br>
 
-Pre-requisite
+# Pre-requisite <br>
 How to install Playwright: please run `npm init playwright@latest`
 
 How to run all the tests: please run `npx playwright test saucedemo.spec.ts`
 
 How to run tests in headed mode: please run `npx playwright test saucedemo.spec.ts  --headed`
-
 
 How to run an individual test (in headed mode): please run `npx playwright test saucedemo.spec.ts --headed --grep "<test name>"`
 
