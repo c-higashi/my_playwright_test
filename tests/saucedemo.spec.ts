@@ -12,14 +12,19 @@ test('A valid user logs in', async ({ page }) => {
     await loginPage.verifyUserIsLoggedIn();
 });
 
-// Scenario 1-2: Log in with an invalid user.
-test('An invalid user attempts to log in', async ({ page }) => {
+// Scenario 1-2: User cannot log in.
+test('User cannot log in', async ({ page }) => {
     const loginPage = new LoginPage(page);
+    const password = 'secret_sauce'
     await loginPage.goto();
-    await loginPage.login('standard_use', 'secret_sauce')    
+
+    // Case 1: Misspelled username
+    await loginPage.login('standard_use', password)    
+    await loginPage.verifyLoginErrorMessage('Epic sadface: Username and password do not match any user in this service')
   
-  const error_message = page.getByText('Epic sadface: Username and password do not match any user in this service');
-  await expect(error_message).toBeVisible();    
+    // Case 2: Locked out user
+    await loginPage.login('locked_out_user', password)
+    await loginPage.verifyLoginErrorMessage('Epic sadface: Sorry, this user has been locked out.')
 });
 
 // Scenario 2: Validate the number of items on the page and also validate the sorting by price.

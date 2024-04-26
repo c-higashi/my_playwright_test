@@ -34,4 +34,9 @@ export class LoginPage {
     await expect(this.page.locator('.shopping_cart_link')).toBeVisible();
     await expect(this.page.locator('.inventory_list')).toBeVisible();    
   }
+
+  async verifyLoginErrorMessage(errorMessage : string){
+    const error_message = this.page.getByText(errorMessage);
+    await expect(error_message).toBeVisible();    
+  }
 }
