@@ -3,24 +3,16 @@ import { expect, type Locator, type Page } from '@playwright/test';
 export class ProductsPage {
   readonly page: Page;
   readonly itemPrices: Locator;
-//   readonly productSortDropdownLoator: string;
-//   readonly pomLink: Locator;
-//   readonly tocList: Locator;
+  readonly shoppingCart: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.itemPrices = page.locator('.inventory_item_price');
-    // this.productSortDropdownLoator = '.product_sort_container';
-    // this.pomLink = page.locator('li', {
-    //   hasText: 'Guides',
-    // }).locator('a', {
-    //   hasText: 'Page Object Model',
-    // });
-    // this.tocList = page.locator('article div.markdown ul > li > a');
+    this.shoppingCart = page.locator('.shopping_cart_badge');
   }
 
   async goto() {
-    await this.page.goto('https://playwright.dev');
+    await this.page.goto('https://www.saucedemo.com/inventory.html');
   }
 
   /**
@@ -46,6 +38,14 @@ export class ProductsPage {
 
   async getProductPrice(productIndex: number): Promise<number>{
     return parseFloat((await this.itemPrices.nth(productIndex).textContent() || "").substring(1));
+  }
+
+  async verifyNumOfProductsInCart(numOfItems : string){
+    await expect(this.shoppingCart).toHaveText(numOfItems);
+  }
+
+  async addOrRemoveItemToAndFromCart(itemLocator : string){
+    await this.page.locator(itemLocator).click();
   }
 
 }

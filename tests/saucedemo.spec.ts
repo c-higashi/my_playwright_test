@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/login-page';
 import { ProductsPage } from '../pages/products-page';
+import { CartPage } from '../pages/cart-page';
 
 // Scenario 1-1: Log in with a valid user.
 test('A valid user logs in', async ({ page }) => {
@@ -17,9 +18,8 @@ test('An invalid user attempts to log in', async ({ page }) => {
     await loginPage.goto();
 
     await loginPage.login('standard_use', 'secret_sauce')
-    await page.locator('id=login-button').click();
+    // await page.locator('id=login-button').click();
   
-//  TODO: Figure out if there's a better way to get the error message.  getByText() doesn't fail even when a partial text is passed in.
   const error_message = page.getByText('Epic sadface: Username and password do not match any user in this service');
   await expect(error_message).toBeVisible();    
 });
@@ -39,6 +39,7 @@ test('Verify the page content and sorting', async ({ page }) => {
     // Selecct Price (low to high) from the dropdown.    
     await productsPage.sortProducts('lohi');
     
+    // Verity that the first item has the lowest price and that the last item has the highest price.
     const first_price = await productsPage.getProductPrice(0);
     const last_price = await productsPage.getProductPrice(numProducts-1);
     for (let index = 1; index < numProducts-1; index++) {        
@@ -50,25 +51,34 @@ test('Verify the page content and sorting', async ({ page }) => {
 
   test('Add items to the cart and remove one item from the cart', async ({ page }) => {
     const loginPage = new LoginPage(page);
+    const productsPage = new ProductsPage(page);
+    const cartPage = new CartPage(page);
+
     await loginPage.goto();
     await loginPage.login('standard_user', 'secret_sauce');
     await loginPage.verifyUserIsLoggedIn();
 
     // Add 3 items to the cart.
-    await page.locator('id=add-to-cart-sauce-labs-onesie').click();
-    await page.locator('id=add-to-cart-sauce-labs-bike-light').click();
-    await page.locator('id=add-to-cart-sauce-labs-bolt-t-shirt').click();
+    await productsPage.addOrRemoveItemToAndFromCart('id=add-to-cart-sauce-labs-onesie');
+    await productsPage.addOrRemoveItemToAndFromCart('id=add-to-cart-sauce-labs-bike-light');
+    await productsPage.addOrRemoveItemToAndFromCart('id=add-to-cart-sauce-labs-bolt-t-shirt');
 
     // Verify that the cart has 3 items.
-    await expect(page.locator('.shopping_cart_badge')).toHaveText('3');
-    // TODO - Go to the cart page and verify the number.
+    await productsPage.verifyNumOfProductsInCart('3');    
+    
+    // Go to the cart page and verify the number of products.    
+    cartPage.goto();
+    await cartPage.verifyNumOfProducts(3);
 
     // Remove 1 item from the cart.
-    await page.locator('id=remove-sauce-labs-onesie').click();    
-
-    // Verify that there is only 1 item left in the cart.
-    await expect(page.locator('.shopping_cart_badge')).toHaveText('2');       
+    productsPage.goto();
+    await productsPage.addOrRemoveItemToAndFromCart('id=remove-sauce-labs-onesie');
     
-    // TODO - Go to the cart page and verify the number. 
+    // Verify that there is only 1 item left in the cart.    
+    await productsPage.verifyNumOfProductsInCart('2');  
+    
+    // Go to the cart page and verify the number of products. 
+    cartPage.goto();
+    await cartPage.verifyNumOfProducts(2);
   });
   
