@@ -16,9 +16,7 @@ test('A valid user logs in', async ({ page }) => {
 test('An invalid user attempts to log in', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-
-    await loginPage.login('standard_use', 'secret_sauce')
-    // await page.locator('id=login-button').click();
+    await loginPage.login('standard_use', 'secret_sauce')    
   
   const error_message = page.getByText('Epic sadface: Username and password do not match any user in this service');
   await expect(error_message).toBeVisible();    
@@ -27,11 +25,12 @@ test('An invalid user attempts to log in', async ({ page }) => {
 // Scenario 2: Validate the number of items on the page and also validate the sorting by price.
 test('Verify the page content and sorting', async ({ page }) => {
     const loginPage = new LoginPage(page);
+    const productsPage = new ProductsPage(page);
+
     await loginPage.goto();
     await loginPage.login('standard_user', 'secret_sauce');
     await loginPage.verifyUserIsLoggedIn();
-    
-    const productsPage = new ProductsPage(page);
+        
     // Verify the number of items on the page.
     const numProducts = 6;
     await productsPage.verifyNumOfProducts(numProducts)
@@ -63,7 +62,7 @@ test('Verify the page content and sorting', async ({ page }) => {
     await productsPage.addOrRemoveItemToAndFromCart('id=add-to-cart-sauce-labs-bike-light');
     await productsPage.addOrRemoveItemToAndFromCart('id=add-to-cart-sauce-labs-bolt-t-shirt');
 
-    // Verify that the cart has 3 items.
+    // Verify that the cart icon shows 3.
     await productsPage.verifyNumOfProductsInCart('3');    
     
     // Go to the cart page and verify the number of products.    
@@ -74,7 +73,7 @@ test('Verify the page content and sorting', async ({ page }) => {
     productsPage.goto();
     await productsPage.addOrRemoveItemToAndFromCart('id=remove-sauce-labs-onesie');
     
-    // Verify that there is only 1 item left in the cart.    
+    // Verify that the cart icon shows 2.
     await productsPage.verifyNumOfProductsInCart('2');  
     
     // Go to the cart page and verify the number of products. 

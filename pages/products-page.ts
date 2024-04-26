@@ -36,10 +36,19 @@ export class ProductsPage {
     await this.page.selectOption('.product_sort_container', sortOption);        
   }
 
+  /**
+   * 
+   * @param productIndex : Returns the price for each item.
+   * @returns 
+   */
   async getProductPrice(productIndex: number): Promise<number>{
     return parseFloat((await this.itemPrices.nth(productIndex).textContent() || "").substring(1));
   }
 
+  /**
+   * 
+   * @param numOfItems : Verifies the number on the shopping cart icon.
+   */
   async verifyNumOfProductsInCart(numOfItems : string){
     await expect(this.shoppingCart).toHaveText(numOfItems);
   }

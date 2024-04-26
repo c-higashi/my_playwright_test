@@ -13,6 +13,10 @@ export class CartPage {
     await this.page.goto('https://www.saucedemo.com/cart.html');
   }
 
+  /**
+   * 
+   * @param numOfItems Verifies the number of products on the page.
+   */
   async verifyNumOfProducts(numOfItems: number) {
     await expect(this.cartItems).toHaveCount(numOfItems);    
   }
