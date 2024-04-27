@@ -5,14 +5,12 @@ export class LoginPage {
   readonly usernameTextbox: Locator;
   readonly passwordTextbox: Locator;
   readonly loginButton: Locator;
-  readonly pagetTitle: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.usernameTextbox = page.locator('id=user-name' );
     this.passwordTextbox = page.locator('id=password');
-    this.loginButton = page.locator('id=login-button')
-    this.pagetTitle = page.locator('article div.markdown ul > li > a');
+    this.loginButton = page.locator('id=login-button')    
   }
 
   async goto() {
