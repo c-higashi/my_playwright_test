@@ -1,6 +1,6 @@
 # saucedemo
 
-## This is the automated tests for the website  https://www.saucedemo.com/ using Playwright (typescript).
+## This is the automated tests for the website  https://www.saucedemo.com/ using Playwright (TypeScript).
 
 ### NOTES
 - For this exercise I have configured this framework so that the tests only run in Chrome. <br>
