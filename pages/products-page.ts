@@ -30,7 +30,11 @@ export class ProductsPage {
    *                     - za => Name (Z to A)
    *                     - lohi => Price (low to high)
    *                     - hilo => Price (high to low)
-   *                    example: sortProducts('lohi')
+   * **Usage**
+   *
+   * ```js
+   * sortProducts('lohi')
+   * ```                                        
    */
   async sortProducts(sortOption: string) {
     await this.page.selectOption('.product_sort_container', sortOption);        
@@ -53,6 +57,16 @@ export class ProductsPage {
     await expect(this.shoppingCart).toHaveText(numOfItems);
   }
 
+  /**
+   * 
+   * @param itemLocator : Add or remove an item to and from the cart.
+   * 
+   * **Usage**
+   *
+   * ```js
+   * addOrRemoveItemToAndFromCart('id=add-to-cart-sauce-labs-onesie')
+   * ```                   
+   */
   async addOrRemoveItemToAndFromCart(itemLocator : string){
     await this.page.locator(itemLocator).click();
   }

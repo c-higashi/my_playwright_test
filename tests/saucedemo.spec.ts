@@ -6,8 +6,8 @@ import { CartPage } from '../pages/cart-page';
 // Scenario 1-1: Log in with a valid user.
 test('A valid user logs in', async ({ page }) => {
     const loginPage = new LoginPage(page);
+    
     await loginPage.goto();
-
     await loginPage.login('standard_user', 'secret_sauce');
     await loginPage.verifyUserIsLoggedIn();
 });
@@ -16,6 +16,7 @@ test('A valid user logs in', async ({ page }) => {
 test('User cannot log in', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const password = 'secret_sauce'
+    
     await loginPage.goto();
 
     // Case 1: Misspelled username
@@ -31,13 +32,13 @@ test('User cannot log in', async ({ page }) => {
 test('Verify the page content and sorting', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const productsPage = new ProductsPage(page);
+    const numProducts = 6;
 
     await loginPage.goto();
     await loginPage.login('standard_user', 'secret_sauce');
     await loginPage.verifyUserIsLoggedIn();
         
-    // Verify the number of items on the page.
-    const numProducts = 6;
+    // Verify the number of items on the page.    
     await productsPage.verifyNumOfProducts(numProducts)
             
     // Selecct Price (low to high) from the dropdown.    
@@ -53,6 +54,7 @@ test('Verify the page content and sorting', async ({ page }) => {
     }
   });
 
+　// Scenario 3: Add and remove the items to and from the cart and verify the number of items in the cart.
   test('Add items to the cart and remove one item from the cart', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const productsPage = new ProductsPage(page);
