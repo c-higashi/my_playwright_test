@@ -28,7 +28,7 @@ test('User cannot log in', async ({ page }) => {
     await loginPage.verifyLoginErrorMessage('Epic sadface: Sorry, this user has been locked out.')
 });
 
-// Scenario 2: Validate the number of items on the page and also validate the sorting by price.
+// Scenario 2: Validate the number of items on the page after logging in and also validate the sorting by price.
 test('Verify the page content and sorting', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const productsPage = new ProductsPage(page);
@@ -41,7 +41,7 @@ test('Verify the page content and sorting', async ({ page }) => {
     // Verify the number of items on the page.    
     await productsPage.verifyNumOfProducts(numProducts)
             
-    // Selecct Price (low to high) from the dropdown.    
+    // Select Price (low to high) from the dropdown.    
     await productsPage.sortProducts('lohi');
     
     // Verity that the first item has the lowest price and that the last item has the highest price.
