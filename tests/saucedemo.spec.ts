@@ -3,7 +3,7 @@ import { LoginPage } from '../pages/login-page';
 import { ProductsPage } from '../pages/products-page';
 import { CartPage } from '../pages/cart-page';
 
-// Scenario 1-1: Log in with a valid user.
+// Scenario 1-1
 test('A valid user logs in', async ({ page }) => {
     const loginPage = new LoginPage(page);
     
@@ -12,18 +12,22 @@ test('A valid user logs in', async ({ page }) => {
     await loginPage.verifyUserIsLoggedIn();
 });
 
-// Scenario 1-2: User cannot log in.
-test('User cannot log in', async ({ page }) => {
+// Scenario 1-2
+test('User cannot log in because of a misspelled username.', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    const password = 'secret_sauce'
+    
+    await loginPage.goto();    
+    await loginPage.login('standard_use', password)    
+    await loginPage.verifyLoginErrorMessage('Epic sadface: Username and password do not match any user in this service')
+});
+
+// Scenario 1-3
+test('User cannot log in because he/she has been locked out.', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const password = 'secret_sauce'
     
     await loginPage.goto();
-
-    // Case 1: Misspelled username
-    await loginPage.login('standard_use', password)    
-    await loginPage.verifyLoginErrorMessage('Epic sadface: Username and password do not match any user in this service')
-  
-    // Case 2: Locked out user
     await loginPage.login('locked_out_user', password)
     await loginPage.verifyLoginErrorMessage('Epic sadface: Sorry, this user has been locked out.')
 });
@@ -47,7 +51,7 @@ test('Verify the page content and sorting', async ({ page }) => {
     // Verity that the first item has the lowest price and that the last item has the highest price.
     const first_price = await productsPage.getProductPrice(0);
     const last_price = await productsPage.getProductPrice(numProducts-1);
-    for (let index = 1; index < numProducts-1; index++) {        
+    for (let index = 0; index < numProducts; index++) {        
         const index_price = await productsPage.getProductPrice(index);
         expect(first_price).toBeLessThanOrEqual(index_price);
         expect(last_price).toBeGreaterThanOrEqual(index_price);        
