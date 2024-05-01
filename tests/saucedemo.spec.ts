@@ -7,28 +7,26 @@ import { CartPage } from '../pages/cart-page';
 test('A valid user logs in', async ({ page }) => {
     const loginPage = new LoginPage(page);
     
-    await loginPage.goto();
-    await loginPage.login('standard_user', 'secret_sauce');
+    await loginPage.goto();    
+    await loginPage.login(loginPage.standardUserName, loginPage.validPassword);
     await loginPage.verifyUserIsLoggedIn();
 });
 
 // Scenario 1-2
 test('User cannot log in because of a misspelled username.', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    const password = 'secret_sauce'
+    const loginPage = new LoginPage(page);    
     
     await loginPage.goto();    
-    await loginPage.login('standard_use', password)    
+    await loginPage.login('standard_use', loginPage.validPassword)    
     await loginPage.verifyLoginErrorMessage('Epic sadface: Username and password do not match any user in this service')
 });
 
 // Scenario 1-3
 test('User cannot log in because he/she has been locked out.', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    const password = 'secret_sauce'
+    const loginPage = new LoginPage(page);    
     
     await loginPage.goto();
-    await loginPage.login('locked_out_user', password)
+    await loginPage.login(loginPage.lockedOUtUserName, loginPage.validPassword)
     await loginPage.verifyLoginErrorMessage('Epic sadface: Sorry, this user has been locked out.')
 });
 

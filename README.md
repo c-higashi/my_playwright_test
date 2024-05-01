@@ -15,7 +15,7 @@ This is the automated tests for the website  https://www.saucedemo.com/ using Pl
 All tests are contained in [saucedemo.spec.ts](./tests/saucedemo.spec.ts).
 
 ### Executing the tests
-Pease run the following commands to checkout and run the tests.
+Pease run the following commands to check out and run the tests.
 ```bash
 git clone https://github.com/c-higashi/saucedemo.git
 cd saucedemo
