@@ -12,7 +12,7 @@ This is the automated tests for the website  https://www.saucedemo.com/ using Pl
 - You have checked out this project locally from Git.
 
 ### Tests
-All tests are contained in [saucedemo.spec.ts](./tests/saucedemo.spec.ts).
+All tests are contained in [/tests/saucedemo.spec.ts](./tests/saucedemo.spec.ts).
 
 ### Executing the tests
 Pease run the following commands to check out and run the tests.
