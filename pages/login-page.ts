@@ -7,7 +7,7 @@ export class LoginPage {
   readonly loginButton: Locator;
   readonly standardUserName: string;
   readonly validPassword: string;
-  readonly lockedOUtUserName: string;
+  readonly lockedOutUserName: string;
 
   constructor(page: Page) {
     this.page = page;
@@ -16,7 +16,7 @@ export class LoginPage {
     this.loginButton = page.locator('id=login-button')  
     this.standardUserName = 'standard_user';  
     this.validPassword = 'secret_sauce';
-    this.lockedOUtUserName = 'locked_out_user';
+    this.lockedOutUserName = 'locked_out_user';
   }
 
   async goto() {

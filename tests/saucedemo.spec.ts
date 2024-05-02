@@ -26,7 +26,7 @@ test('User cannot log in because he/she has been locked out.', async ({ page }) 
     const loginPage = new LoginPage(page);    
     
     await loginPage.goto();
-    await loginPage.login(loginPage.lockedOUtUserName, loginPage.validPassword)
+    await loginPage.login(loginPage.lockedOutUserName, loginPage.validPassword)
     await loginPage.verifyLoginErrorMessage('Epic sadface: Sorry, this user has been locked out.')
 });
 
