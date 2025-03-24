@@ -1,4 +1,4 @@
-# saucedemo
+# myplaywrighttest
 
 This is the automated tests for the website  https://www.saucedemo.com/ using Playwright (TypeScript).
 
