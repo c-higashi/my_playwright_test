@@ -7,6 +7,9 @@ This is the automated tests for the website  https://www.saucedemo.com/ using Pl
 - The tests are configured to run in parallel.
 - The tests run in headless mode by default.
 
+### TODOs
+- Extract the login credentials and the URL to another file.
+
 ### Prerequisites 
 - Playwright is [installed](https://playwright.dev/docs/intro#installing-playwright) on your system.
 - You have checked out this project locally from Git.
