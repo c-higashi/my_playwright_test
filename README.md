@@ -7,6 +7,11 @@ This is the automated tests for the website  https://www.saucedemo.com/ using Pl
 - The tests are configured to run in parallel.
 - The tests run in headless mode by default.
 
+### TODO
+- Update the rest of the rests with config file.
+- Update the framework to use Github secrets
+- Set up Github Actions
+
 ### Prerequisites 
 - Playwright is [installed](https://playwright.dev/docs/intro#installing-playwright) on your system.
 - You have checked out this project locally from Git.
