@@ -1,7 +1,8 @@
 import { expect, type Locator, type Page } from '@playwright/test';
+import { CONFIG } from '../config/config';
 
 export class LoginPage {
-  readonly page: Page;
+readonly page: Page;
   readonly usernameTextbox: Locator;
   readonly passwordTextbox: Locator;
   readonly loginButton: Locator;
@@ -11,17 +12,18 @@ export class LoginPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.usernameTextbox = page.locator('id=user-name' );
+    this.usernameTextbox = page.locator('id=user-name');
     this.passwordTextbox = page.locator('id=password');
-    this.loginButton = page.locator('id=login-button')  
-    this.standardUserName = 'standard_user';  
-    this.validPassword = 'secret_sauce';
-    this.lockedOutUserName = 'locked_out_user';
+    this.loginButton = page.locator('id=login-button');
+
+    this.standardUserName = CONFIG.credentials.standardUser.username;
+    this.validPassword = CONFIG.credentials.standardUser.password;
+    this.lockedOutUserName = CONFIG.credentials.lockedOutUser.username;
   }
 
   async goto() {
-    await this.page.goto('https://www.saucedemo.com/');
-    await expect(this.page).toHaveTitle(/Swag Labs/);        
+    await this.page.goto(CONFIG.baseUrl);
+    await expect(this.page).toHaveTitle(/Swag Labs/);
     await expect(this.usernameTextbox).toBeVisible();
     await expect(this.passwordTextbox).toBeVisible();
   }

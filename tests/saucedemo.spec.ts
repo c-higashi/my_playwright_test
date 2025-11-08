@@ -2,14 +2,17 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/login-page';
 import { ProductsPage } from '../pages/products-page';
 import { CartPage } from '../pages/cart-page';
+import { CONFIG } from '../config/config';
 
 // Scenario 1-1
 test('A valid user logs in', async ({ page }) => {
     const loginPage = new LoginPage(page);
     
     await loginPage.goto();    
-    await loginPage.login(loginPage.standardUserName, loginPage.validPassword);
-    await loginPage.verifyUserIsLoggedIn();
+    await loginPage.login(
+    CONFIG.credentials.standardUser.username,
+    CONFIG.credentials.standardUser.password
+  );    await loginPage.verifyUserIsLoggedIn();
 });
 
 // Scenario 1-2
