@@ -2,7 +2,7 @@ import { expect, type Locator, type Page } from '@playwright/test';
 import { CONFIG } from '../config/config';
 
 export class LoginPage {
-readonly page: Page;
+  readonly page: Page;
   readonly usernameTextbox: Locator;
   readonly passwordTextbox: Locator;
   readonly loginButton: Locator;
@@ -11,10 +11,10 @@ readonly page: Page;
   readonly lockedOutUserName: string;
 
   constructor(page: Page) {
-    this.page = page;
-    this.usernameTextbox = page.locator('id=user-name');
-    this.passwordTextbox = page.locator('id=password');
-    this.loginButton = page.locator('id=login-button');
+    this.page = page;    
+    this.usernameTextbox = page.getByTestId('user-name')    
+    this.passwordTextbox = page.getByTestId('password');    
+    this.loginButton = page.getByTestId('login-button');
 
     this.standardUserName = CONFIG.credentials.standardUser.username;
     this.validPassword = CONFIG.credentials.standardUser.password;
