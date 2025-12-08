@@ -12,7 +12,7 @@ export class LoginPage {
 
   constructor(page: Page) {
     this.page = page;    
-    this.usernameTextbox = page.getByTestId('user-name')    
+    this.usernameTextbox = page.getByTestId('username')    
     this.passwordTextbox = page.getByTestId('password');    
     this.loginButton = page.getByTestId('login-button');
 
