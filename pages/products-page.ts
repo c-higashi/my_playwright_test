@@ -10,8 +10,8 @@ export class ProductsPage {
   constructor(page: Page) {
     this.page = page;
     this.pageTitle = page.getByTestId('title');
-    this.itemPrices = page.locator('.inventory_item_price');
-    this.shoppingCart = page.locator('.shopping_cart_badge');
+    this.itemPrices = page.getByTestId('inventory-item-price');
+    this.shoppingCart = page.getByTestId('shopping-cart-badge');
     this.burgerMenuIcon = page.getByTestId('open-menu');
   }
 
