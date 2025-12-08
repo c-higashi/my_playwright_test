@@ -1,5 +1,7 @@
 import { expect, type Locator, type Page } from '@playwright/test';
+import { ProductsPage } from './products-page';
 import { CONFIG } from '../config/config';
+import exp from 'constants';
 
 export class LoginPage {
   readonly page: Page;
@@ -34,9 +36,10 @@ export class LoginPage {
     await this.loginButton.click();
   }
 
-  async verifyUserIsLoggedIn() {
-    await expect(this.page.locator('.title')).toContainText('Products');  
-    await expect(this.page.locator('id=react-burger-menu-btn')).toBeVisible();
+  async verifyUserIsLoggedIn() {    
+    const productPage = new ProductsPage(this.page);
+    await expect(productPage.pageTitle).toBeVisible();
+    await expect(productPage.burgerMenuIcon).toBeVisible();    
     await expect(this.page.locator('.shopping_cart_link')).toBeVisible();
     await expect(this.page.locator('.inventory_list')).toBeVisible();    
   }

@@ -2,13 +2,17 @@ import { expect, type Locator, type Page } from '@playwright/test';
 
 export class ProductsPage {
   readonly page: Page;
+  readonly pageTitle: Locator;
   readonly itemPrices: Locator;
   readonly shoppingCart: Locator;
+  readonly burgerMenuIcon: Locator;
 
   constructor(page: Page) {
     this.page = page;
+    this.pageTitle = page.getByTestId('title');
     this.itemPrices = page.locator('.inventory_item_price');
     this.shoppingCart = page.locator('.shopping_cart_badge');
+    this.burgerMenuIcon = page.getByTestId('open-menu');
   }
 
   async goto() {
