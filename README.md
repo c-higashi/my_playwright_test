@@ -8,7 +8,8 @@ This is the automated tests for the website  https://www.saucedemo.com/ using Pl
 - The tests run in headless mode by default.
 
 ### TODO
-- Move baseURL from config.ts to playwright.config.ts
+- Update the rest of the Page objects to use baseURL in playwright.config.ts
+- Remove baseURL from config.ts
 - Update the rest of the rests with config file.
 - Update the framework to use Github secrets
 - Set up Github Actions
