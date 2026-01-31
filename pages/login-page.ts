@@ -24,7 +24,7 @@ export class LoginPage {
   }
 
   async goto() {
-    await this.page.goto(CONFIG.baseUrl);
+    await this.page.goto('/');
     await expect(this.page).toHaveTitle(/Swag Labs/);
     await expect(this.usernameTextbox).toBeVisible();
     await expect(this.passwordTextbox).toBeVisible();

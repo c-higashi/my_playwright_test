@@ -9,7 +9,6 @@ This is the automated tests for the website  https://www.saucedemo.com/ using Pl
 
 ### TODO
 - Move baseURL from config.ts to playwright.config.ts
-- Add beforeEach() to the test file
 - Update the rest of the rests with config file.
 - Update the framework to use Github secrets
 - Set up Github Actions
