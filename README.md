@@ -11,6 +11,7 @@ This is the automated tests for the website  https://www.saucedemo.com/ using Pl
 - Update the rest of the Page objects to use baseURL in playwright.config.ts
 - Remove baseURL from config.ts
 - Update the rest of the rests with config file.
+- Make use of fixture
 - Update the framework to use Github secrets
 - Set up Github Actions
 
