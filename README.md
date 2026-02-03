@@ -14,6 +14,7 @@ This is the automated tests for the website  https://www.saucedemo.com/ using Pl
 - Make use of fixture
 - Update the framework to use Github secrets
 - Set up Github Actions
+- Implement Sharding
 
 ### Prerequisites 
 - Playwright is [installed](https://playwright.dev/docs/intro#installing-playwright) on your system.
@@ -21,7 +22,7 @@ This is the automated tests for the website  https://www.saucedemo.com/ using Pl
 
 ### Tests
 All tests are contained in [/tests/saucedemo.spec.ts](./tests/saucedemo.spec.ts).
-
+s
 ### Executing the tests
 Pease run the following commands to check out and run the tests.
 ```bash
